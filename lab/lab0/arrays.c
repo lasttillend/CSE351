@@ -171,7 +171,7 @@ int main(int argc, char* argv[]) {
   // we used on the FourInts above.  ptr->a is 
   // equivalent to (*ptr).a .  Note the difference 
   // between FourInts and FourInts*.)
-  FourInts *heap_fourInts = malloc(sizeof(FourInts));
+  FourInts *heap_fourInts = malloc(sizeof(*heap_fourInts));
 
   fillArray(&(heap_fourInts->a), 1);
   fillArray(&(heap_fourInts->b), 1);
