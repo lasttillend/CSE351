@@ -239,7 +239,7 @@ int addOK(int x, int y) {
     // (1) 0, 0, 1 
     // (2) 1, 1, 0
     //printf("sign of x:%d, sign of y:%d, sign of sum:%d\n", signbit_x, signbit_y, signbit_sum);
-    int overflow =  (~signbit_x & ~signbit_y & signbit_sum) | (signbit_x & signbit_y & ~signbit_sum); 
+    int overflow =  (!signbit_x & !signbit_y & signbit_sum) | (signbit_x & signbit_y & !signbit_sum); 
     return !overflow;
 }
 /*
