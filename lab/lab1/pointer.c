@@ -103,8 +103,12 @@ int intSize() {
   int * intPtr1;
   int * intPtr2;
   // Write code to compute size of an integer.
+  intPtr1 = intArray;
+  intPtr2 = intArray + 1;
+  // Casting to unsigned long to compare two addresses. Remember int * is 8 bytes.
+  // It will return the number of bytes difference between the two address value.
+  return (unsigned long) intPtr2 - (unsigned long) intPtr1;    
 
-  return 2;
 }
 
 /*
@@ -115,8 +119,9 @@ int doubleSize() {
   double * doubPtr1;
   double * doubPtr2;
   // Write code to compute size of a double.
-
-  return 2;
+  doubPtr1 = doubArray;
+  doubPtr2 = doubArray + 1;
+  return (unsigned long) doubPtr2 - (unsigned long) doubPtr1;
 }
 
 /*
@@ -127,8 +132,10 @@ int pointerSize() {
   double ** ptrPtr1;
   double ** ptrPtr2;
   // Write code to compute size of a pointer.
+  ptrPtr1 = ptrArray;
+  ptrPtr2 = ptrArray + 1;
 
-  return 2;
+  return (unsigned long) ptrPtr2 - (unsigned long) ptrPtr1;
 }
 
 /*
@@ -145,7 +152,8 @@ int changeValue() {
   int * intPtr1 = intArray;
   // Remember not to use constants greater than 255.
   // Remember to use * to dereference.
-
+  int three_five_one = (1 << 8) + 95;
+  *(intPtr1 + 5) = three_five_one;
   return intArray[5];
 }
 
@@ -155,7 +163,11 @@ int changeValue() {
  * Operators / and % and loops are NOT allowed.
  */
 int withinSameBlock(int *ptr1, int *ptr2) {
-  return 2;
+  // Two pointers are within the same block of memory if their addresses
+  // are the same except for the last six bits.
+  unsigned long p1 = (unsigned long) ptr1 >> 6;
+  unsigned long p2 = (unsigned long) ptr2 >> 6;
+  return p1 == p2; 
 }
 
 /*
@@ -166,5 +178,12 @@ int withinSameBlock(int *ptr1, int *ptr2) {
  * Operators / and % and loops are NOT allowed.
  */
 int withinArray(int * intArray, int size, int * ptr) {
-  return 2;
+  // If ptr points to an element within intArray, then the signs of (ptr - intArray) 
+  // and (intArray+size-1 - ptr) must be the same, i.e., intArray <= ptr <= intArray+size-1.
+  int distance1 = ptr - intArray;
+  int sign1 = distance1 >> 31;
+  int distance2 = intArray + size - 1 - ptr;
+  int sign2 = distance2  >> 31;
+  return sign1 == sign2;  
 }
+
